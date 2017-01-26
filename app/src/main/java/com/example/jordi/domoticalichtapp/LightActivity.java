@@ -1,16 +1,14 @@
 package com.example.jordi.domoticalichtapp;
 
-import android.content.pm.PackageInstaller;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.widget.CompoundButton;
 import android.widget.Switch;
 import android.widget.TextView;
+
 import net.schmizz.sshj.SSHClient;
 import net.schmizz.sshj.connection.channel.direct.Session;
 import net.schmizz.sshj.connection.channel.direct.Session.Command;
-import java.security.PublicKey;
-import net.schmizz.sshj.transport.verification.HostKeyVerifier;
 
 import java.io.IOException;
 
@@ -26,6 +24,8 @@ public class LightActivity extends AppCompatActivity
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_light);
 
+
+
         lichtSwitch = (Switch) findViewById(R.id.switch1);
         lichtText = (TextView) findViewById(R.id.textView);
 
@@ -37,10 +37,17 @@ public class LightActivity extends AppCompatActivity
                 if(isChecked)
                 {
                     lichtText.setText("Licht staat aan");
+                    try {
+                        buttonCommand();
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+
                 }
                 else
                 {
                     lichtText.setText("Licht staat uit");
+                    System.out.println("dfbdjfgbjdf");
                 }
 
 
@@ -49,18 +56,18 @@ public class LightActivity extends AppCompatActivity
 
 
     }
-    public static void main(String... args)
+    public void buttonCommand()
             throws IOException {
         final SSHClient ssh = new SSHClient();
         ssh.addHostKeyVerifier(new NullHostKeyVerifier());
 
-        ssh.connect("192.168.1.70", 22);
+        ssh.connect("192.168.1.5", 22);
 
         try {
             ssh.authPassword("pi", "raspberry");
-            final PackageInstaller.Session session = ssh.startSession();
+            final Session session = ssh.startSession();
             try {
-                final Command cmd = session.exec("ls");
+                final Command cmd = session.exec("ping www.google.com");
             } finally {
                 session.close();
             }

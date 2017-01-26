@@ -1,3 +1,5 @@
+package com.example.jordi.domoticalichtapp;
+
 import net.schmizz.sshj.transport.verification.HostKeyVerifier;
 
 import java.security.PublicKey;
