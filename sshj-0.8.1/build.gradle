@@ -1,0 +1,2 @@
+configurations.maybeCreate("default")
+artifacts.add("default", file('sshj-0.8.1.jar'))

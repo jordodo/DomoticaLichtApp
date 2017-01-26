@@ -1,10 +1,18 @@
 package com.example.jordi.domoticalichtapp;
 
-import android.support.v7.app.AppCompatActivity;
+import android.content.pm.PackageInstaller;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.widget.CompoundButton;
 import android.widget.Switch;
 import android.widget.TextView;
+import net.schmizz.sshj.SSHClient;
+import net.schmizz.sshj.connection.channel.direct.Session;
+import net.schmizz.sshj.connection.channel.direct.Session.Command;
+import java.security.PublicKey;
+import net.schmizz.sshj.transport.verification.HostKeyVerifier;
+
+import java.io.IOException;
 
 public class LightActivity extends AppCompatActivity
 {
@@ -41,5 +49,23 @@ public class LightActivity extends AppCompatActivity
 
 
     }
+    public static void main(String... args)
+            throws IOException {
+        final SSHClient ssh = new SSHClient();
+        ssh.addHostKeyVerifier(new NullHostKeyVerifier());
 
+        ssh.connect("192.168.1.70", 22);
+
+        try {
+            ssh.authPassword("pi", "raspberry");
+            final PackageInstaller.Session session = ssh.startSession();
+            try {
+                final Command cmd = session.exec("ls");
+            } finally {
+                session.close();
+            }
+        } finally {
+            ssh.disconnect();
+        }
+    }
 }
