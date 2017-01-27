@@ -10,6 +10,7 @@
           <set>
             <option value="$PROJECT_DIR$" />
             <option value="$PROJECT_DIR$/app" />
+            <option value="$PROJECT_DIR$/bcprov-jdk15on-1.56" />
             <option value="$PROJECT_DIR$/slf4j-api-1.7.22" />
             <option value="$PROJECT_DIR$/slf4j-simple-1.7.22" />
             <option value="$PROJECT_DIR$/sshj-0.8.1" />

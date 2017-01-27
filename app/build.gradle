@@ -28,5 +28,6 @@ dependencies {
     compile project(':sshj-0.8.1')
     compile project(':slf4j-api-1.7.22')
     compile project(':slf4j-simple-1.7.22')
+    compile project(':bcprov-jdk15on-1.56')
     testCompile 'junit:junit:4.12'
 }
