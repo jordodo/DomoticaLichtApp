@@ -2,6 +2,7 @@ package com.example.jordi.domoticalichtapp;
 
 import android.Manifest;
 import android.content.pm.PackageManager;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
@@ -21,7 +22,7 @@ public class LightActivity extends AppCompatActivity
 
     Switch lichtSwitch;
     TextView lichtText;
-    public static final int MY_PERMISSIONS_REQUEST_READ_CONTACTS = 1;
+    public static final int MY_PERMISSIONS_REQUEST_INTERNET= 1;
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
@@ -29,14 +30,15 @@ public class LightActivity extends AppCompatActivity
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_light);
 
+
         // Here, thisActivity is the current activity
         if (ContextCompat.checkSelfPermission(this,
-                Manifest.permission.READ_CONTACTS)
+                Manifest.permission.INTERNET)
                 != PackageManager.PERMISSION_GRANTED) {
 
             // Should we show an explanation?
             if (ActivityCompat.shouldShowRequestPermissionRationale(this,
-                    Manifest.permission.READ_CONTACTS)) {
+                    Manifest.permission.INTERNET)) {
 
                 // Show an explanation to the user *asynchronously* -- don't block
                 // this thread waiting for the user's response! After the user
@@ -47,8 +49,8 @@ public class LightActivity extends AppCompatActivity
                 // No explanation needed, we can request the permission.
 
                 ActivityCompat.requestPermissions(this,
-                        new String[]{Manifest.permission.READ_CONTACTS},
-                        MY_PERMISSIONS_REQUEST_READ_CONTACTS);
+                        new String[]{Manifest.permission.INTERNET},
+                        MY_PERMISSIONS_REQUEST_INTERNET);
 
                 // MY_PERMISSIONS_REQUEST_READ_CONTACTS is an
                 // app-defined int constant. The callback method gets the
@@ -70,8 +72,18 @@ public class LightActivity extends AppCompatActivity
                 {
                     lichtText.setText("Licht staat aan");
                     try {
-                        buttonCommand();
-                    } catch (IOException e) {
+                        new AsyncTask<Integer, Void, Void>(){
+                            @Override
+                            protected Void doInBackground(Integer... params) {
+                                try {
+                                    networkConnect.buttonCommand();
+                                } catch (Exception e) {
+                                    e.printStackTrace();
+                                }
+                                return null;
+                            }
+                        }.execute(1);
+                    } catch (Exception e) {
                         e.printStackTrace();
                     }
 
@@ -88,18 +100,18 @@ public class LightActivity extends AppCompatActivity
 
 
     }
-    public void buttonCommand()
+    public void buttonCommanjhgjggd()
             throws IOException {
         final SSHClient ssh = new SSHClient();
         ssh.addHostKeyVerifier(new NullHostKeyVerifier());
 
-        ssh.connect("192.168.1.5", 22);
+        ssh.connect("192.168.1.1", 22);
 
         try {
-            ssh.authPassword("pi", "raspberry");
+            ssh.authPassword("pi", "domotica");
             final Session session = ssh.startSession();
             try {
-                final Command cmd = session.exec("ping www.google.com");
+                final Command cmd = session.exec("python /var/www/html/update_hulp.py test");
             } finally {
                 session.close();
             }
@@ -111,7 +123,7 @@ public class LightActivity extends AppCompatActivity
     public void onRequestPermissionsResult(int requestCode,
                                            String permissions[], int[] grantResults) {
         switch (requestCode) {
-            case MY_PERMISSIONS_REQUEST_READ_CONTACTS: {
+            case MY_PERMISSIONS_REQUEST_INTERNET: {
                 // If request is cancelled, the result arrays are empty.
                 if (grantResults.length > 0
                         && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
