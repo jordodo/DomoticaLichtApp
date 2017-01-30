@@ -16,29 +16,56 @@
         android:text="Druk op de knop om het licht aan of uit te zetten."
         android:textAppearance="@style/TextAppearance.AppCompat.SearchResult.Title"
         android:layout_alignParentTop="true"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/textView"
+        android:text=" "
+        android:layout_centerVertical="true"
+        android:layout_alignLeft="@+id/textView2"
+        android:layout_alignStart="@+id/textView2" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/textView2"
+        android:text=" "
+        android:layout_marginLeft="12dp"
+        android:layout_marginStart="12dp"
+        android:layout_alignBaseline="@+id/switch2"
+        android:layout_alignBottom="@+id/switch2"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true" />
 
     <Switch
-        android:text="Licht"
-        android:layout_width="wrap_content"
+        android:text="Keukenlamp"
         android:layout_height="wrap_content"
         android:id="@+id/switch1"
         android:textOn="Aan"
         android:textOff="Uit"
         android:switchTextAppearance="@style/TextAppearance.AppCompat"
-        android:layout_centerVertical="true"
-        android:layout_centerHorizontal="true"
-        android:checked="true"/>
-
-    <TextView
+        android:checked="true"
         android:layout_width="wrap_content"
+        android:layout_alignBaseline="@+id/textView"
+        android:layout_alignBottom="@+id/textView"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true" />
+
+    <Switch
+        android:text="Kamerlamp"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="16dp"
-        android:id="@+id/textView"
-        android:text="TESTING123"
-        android:layout_above="@+id/switch1"
-        android:layout_alignRight="@+id/switch1"
-        android:layout_alignEnd="@+id/switch1" />
+        android:id="@+id/switch2"
+        android:textOn="Aan"
+        android:textOff="Uit"
+        android:switchTextAppearance="@style/TextAppearance.AppCompat"
+        android:checked="true"
+        android:layout_width="wrap_content"
+        android:layout_above="@+id/textView"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true"
+        android:layout_marginBottom="75dp" />
 
 </RelativeLayout>
