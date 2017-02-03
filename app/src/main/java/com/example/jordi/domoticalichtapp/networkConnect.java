@@ -11,13 +11,12 @@ import java.io.IOException;
 
 public class networkConnect
 {
-
+    // Functie maakt connectie met de opgegeven pi, en stuurt een request door.
     public static void buttonCommand(String command)
             throws IOException
     {
         final SSHClient ssh = new SSHClient();
         ssh.addHostKeyVerifier(new NullHostKeyVerifier());
-        System.out.println("AAAAAAAAAAAAAAAAAAAHHHH");
 
         try
         {
@@ -25,24 +24,17 @@ public class networkConnect
         }
         catch(Exception e)
         {
-            System.out.println("dfgdfg");
             e.printStackTrace();
         }
 
-        System.out.println("1");
 
         try
         {
-            System.out.println("2");
             ssh.authPassword("pi", "wachtwoord");
-            System.out.println("3");
             final Session session = ssh.startSession();
-            System.out.println("4");
             try
             {
-                System.out.println("Godverdomme dit fuking tering ding");
                 final Session.Command cmd = session.exec(command);
-                System.out.println("JAAAAAAAAAAAAAA");
             }
             finally
             {

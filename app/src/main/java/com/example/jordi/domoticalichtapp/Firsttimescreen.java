@@ -6,7 +6,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
 
-
+//Eerste scherm om huis te kiezen
 public class Firsttimescreen extends AppCompatActivity
 {
 
@@ -28,7 +28,6 @@ public class Firsttimescreen extends AppCompatActivity
                 btn2.setEnabled(false);
                 ipAddress = "192.168.1.10";
                 startActivity(new Intent(Firsttimescreen.this, LightActivity.class));
-                System.out.println("Button 2 staat uit");
             }
         });
         btn2.setOnClickListener(new View.OnClickListener()
@@ -38,7 +37,6 @@ public class Firsttimescreen extends AppCompatActivity
                 btn1.setEnabled(false);
                 ipAddress = "192.168.1.11";
                 startActivity(new Intent(Firsttimescreen.this, LightActivity.class));
-                System.out.println("Button 1 staat uit");
             }
         });
     }

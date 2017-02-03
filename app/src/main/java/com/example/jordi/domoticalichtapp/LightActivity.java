@@ -28,34 +28,27 @@ public class LightActivity extends AppCompatActivity
         setContentView(R.layout.activity_light);
 
 
-        // Here, thisActivity is the current activity
+        // Functie checkt of de app toegang heeft tot het internet, in de meeste smartphones is dit niet meer nodig.
+        // Maar voor de volledigheid van de functionaliteit moet dit er wel in
         if (ContextCompat.checkSelfPermission(this,
                 Manifest.permission.INTERNET)
                 != PackageManager.PERMISSION_GRANTED)
         {
 
-            // Should we show an explanation?
             if (ActivityCompat.shouldShowRequestPermissionRationale(this,
                     Manifest.permission.INTERNET))
             {
 
-                // Show an explanation to the user *asynchronously* -- don't block
-                // this thread waiting for the user's response! After the user
-                // sees the explanation, try again to request the permission.
 
             }
             else
             {
 
-                // No explanation needed, we can request the permission.
 
                 ActivityCompat.requestPermissions(this,
                         new String[]{Manifest.permission.INTERNET},
                         MY_PERMISSIONS_REQUEST_INTERNET);
 
-                // MY_PERMISSIONS_REQUEST_READ_CONTACTS is an
-                // app-defined int constant. The callback method gets the
-                // result of the request.
             }
         }
 
@@ -66,6 +59,8 @@ public class LightActivity extends AppCompatActivity
         lichtText = (TextView) findViewById(R.id.textView);
         lichtText2 = (TextView) findViewById(R.id.textView2);
 
+        // Checkt de stand van beide switches, en geeft een commando door aan buttonCommand() in networkConnect.
+        // Dit geeft een string door als commando voor de RPi
         lichtSwitch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener()
         {
             @Override
@@ -84,7 +79,6 @@ public class LightActivity extends AppCompatActivity
                                 try
                                 {
                                     networkConnect.buttonCommand("python /home/pi/Desktop/domoticascripts/lamp1aan.py");
-                                    System.out.println("gelukt");
                                 }
                                 catch (Exception e)
                                 {
@@ -150,7 +144,6 @@ public class LightActivity extends AppCompatActivity
                                 try
                                 {
                                     networkConnect.buttonCommand("python /home/pi/Desktop/domoticascripts/lamp2aan.py");
-                                    System.out.println("gelukt");
                                 }
                                 catch (Exception e)
                                 {
